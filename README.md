@@ -19,6 +19,12 @@ WSGIScriptAlias /sensee /usr/lib/sensee/app/sensee.py
 </Directory>
 ```
 
+## Start
+You have two (three) options here:
+ - Running sensee as a standalone python application (you might use the script ```start.sh```)
+ - Running from Apache (see the configuration above)
+ - Never tried yet, but there is a DAEMON mode for mod_wsgi (yes I'm aware, that this is the recommended mode for running mod_wsgi)
+
 ## dependencies
-- Python 2.7
-- Apache 2.4.10
+- Python 2.7+
+- Apache 2.4.10+
