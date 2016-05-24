@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <link href="/sensee_styles/errorlog.css" rel="stylesheet" />
+        <title>sensee internal error</title>
+    </head>
+    <body>
+        <div class="title">
+        <h1><span style="color:#005fab;">sensee</span> Internal Error</h1>
+        <p>Sorry for the inconvenience!<br />Please notify <b>%(name)s</b> (%(email)s).</p>
+        </div>
+        <div>
+        <h3>Server time</h3>
+        <pre>%(date)s</pre>
+        <h3>Tail of the log</h3>
+        <pre>%(log)s</pre>
+        </div>
+        <h4>Page generated in %(generated)s &micro;s.</h4>
+    </body>
+</html>

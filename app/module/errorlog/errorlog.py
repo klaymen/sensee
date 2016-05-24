@@ -2,18 +2,19 @@
 sensee errorlog module
 
 '''
-module = 'errorlog'
 
-import sys
+import sys, os
 import pickle
 import ConfigParser
+import datetime
 from subprocess import check_output
 
 sys.path.append('../../')
 
-import lib.utils    as utils
-import lib.logger   as logger
-import lib.cache    as cache
+import lib.utils     as utils
+import lib.logger    as logger
+import lib.cache     as cache
+import lib.templates as template
 from   lib.conf import *
 
 config = ConfigParser.ConfigParser()
@@ -23,6 +24,8 @@ try:
     LIBPATH         = config.get( 'general', 'LIBPATH' )
     ENABLECACHING   = config.get( 'cache', 'ENABLECACHING' )
     INSTALLPATH     = config.get( 'general', 'INSTALLPATH' )
+    NAME            = config.get( 'maintainer', 'NAME' )
+    EMAIL           = config.get( 'maintainer', 'EMAIL' )    
 except IOError as eIO:
     print( 'error during processing config file: \'%s\'' % eIO )
     sys.exit(1)
@@ -30,6 +33,11 @@ except IOError as eIO:
 
 FILTERS = [ 'html']
 DEFAULTFILTER = FILTERS[0]
+
+#Get module's name from __file__
+module = os.path.basename(__file__)[:-3]
+
+MODULEPATH = os.path.join( LIBPATH, 'module', module )
 
 def tail(file, lines = 40):
     bufsize = 8192
@@ -57,15 +65,23 @@ def buildData(data):
     '''
     build data to cache
     '''
-
-    return tail('/var/log/apache2/error.log')    
     
-def buildHtml(data):
+    start = datetime.datetime.now()
+    data = {}
+    data['log']         = '<br />'.join(tail('/var/log/apache2/error.log')) 
+    data['name']        = NAME
+    data['email']       = EMAIL
+    data['date']        = start
+    data['generated']   = (datetime.datetime.now()-start).microseconds
+    
+    return data
+    
+def buildHtml(data, accessLevel):
     '''
     Build html page based on data if necessary
     '''
-
-    return '<br />'.join(data)
+    templateDir = os.path.join( MODULEPATH, 'templates/html' )
+    return template.read( templateDir, 'error', 'html', accessLevel) % data
 
 def content(
         userName        = '',
@@ -123,7 +139,7 @@ def content(
 
     returnStatus = "200 OK"
 
-    cnt = buildHtml(data)
+    cnt = buildHtml(data, accessLevel)
     
     responseHeaders = [ ( "Content-Type", CONTENT_HTML ),
                         ( "Content-Length", str( len( cnt ) ) ) ]
