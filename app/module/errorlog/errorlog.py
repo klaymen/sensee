@@ -1,21 +1,13 @@
 '''
-sensee sample module
-
-comments starting with ==> to be removed when using this as a template
+sensee errorlog module
 
 '''
-module = '_sample'
-
-#==> standard pyton module includes as needed
+module = 'errorlog'
 
 import sys
 import pickle
 import ConfigParser
 from subprocess import check_output
-
-#==/ 
-
-#==> custom includes from the common lib as needed
 
 sys.path.append('../../')
 
@@ -23,16 +15,6 @@ import lib.utils    as utils
 import lib.logger   as logger
 import lib.cache    as cache
 from   lib.conf import *
-
-#==/ 
-
-#==> custom includes from the module lib as needed
-
-#import module_lib.some_lib as some_lib
-
-#==/
-
-#==> read global config as needed (module specific config values should be in module specific config files located in /etc/ptree/<module_name>.conf)
 
 config = ConfigParser.ConfigParser()
 config.read( CONFIG_FILE )
@@ -45,14 +27,11 @@ except IOError as eIO:
     print( 'error during processing config file: \'%s\'' % eIO )
     sys.exit(1)
 
-#==/
 
-#==> defining supported filters
-
-FILTERS = [ 'html', 'pdf', 'xls', 'csv', 'xlsx' ]
+FILTERS = [ 'html']
 DEFAULTFILTER = FILTERS[0]
 
-def tail(file, lines = 20):
+def tail(file, lines = 40):
     bufsize = 8192
 
     fsize = os.stat(file).st_size
@@ -78,22 +57,16 @@ def buildData(data):
     '''
     build data to cache
     '''
-    return ''
+
+    return tail('/var/log/apache2/error.log')    
     
 def buildHtml(data):
     '''
     Build html page based on data if necessary
     '''
-    
-    log = tail('/var/log/apache2/error.log')
-    print type(log)
-    print len(log)
-    return '<br />'.join(log)
 
-#==/
+    return '<br />'.join(data)
 
-#==> content() is the standard interface of the module towards the main program, 
-#    the return values and function parameters are always identical.
 def content(
         userName        = '',
         accessLevel     = '',
@@ -137,7 +110,8 @@ def content(
 
     if noCache:
         # no or out-of date cache, building new one
-        data = buildData(1) #==> To be replaced with a specific call
+        data = buildData(1)
+        
         # creating cache
         if ENABLECACHING is 1:
             try:
@@ -147,16 +121,11 @@ def content(
             except IOError:
                 logger.error( 'failed to save cacheFile: \'%s\'' % cacheFile )
 
-    #==> determinate the requested output filter
-        #==> raise a warning
-
     returnStatus = "200 OK"
-    
-    #==> build content using the selected filter
+
     cnt = buildHtml(data)
     
     responseHeaders = [ ( "Content-Type", CONTENT_HTML ),
                         ( "Content-Length", str( len( cnt ) ) ) ]
 
-    #==> generate headers, status and return them with the actual content
     return responseHeaders, returnStatus, cnt
