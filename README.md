@@ -18,6 +18,12 @@ WSGIScriptAlias /sensee /usr/lib/sensee/app/sensee.py
     ErrorDocument 500 /sensee/errorlog
 </Directory>
 ```
+To have the module errorlog working with Apache's log, you must set the access permissions accordingly:
+
+```
+chmod 755 /var/log/apache2 
+chmod 744 /var/log/apache2/error.log
+```
 
 ## How to use sensee
 You have two (three) options here:
