@@ -27,7 +27,7 @@ chmod 744 /var/log/apache2/error.log
 
 ## How to use sensee
 You have two (three) options here:
- - Running sensee as a standalone python application (you might use the script ```start.sh```)
+ - Running sensee as a standalone python application (you might use a script ```sudo ./start.sh```)
  - Running from Apache (see the configuration above)
  - Never tried yet, but there is a DAEMON mode for mod_wsgi (yes I'm aware, that this is the recommended mode for running mod_wsgi)
 
