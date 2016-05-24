@@ -1,7 +1,7 @@
 # sensee
 A complex sensor data server based on wsgiblank
 
-## setup
+## setup sensee
  - You need to have a user named as the application: ```useradd sensee```
  - When you are ready navigate to the root folder of the app and install it by: ```sudo make install```
 
@@ -19,7 +19,7 @@ WSGIScriptAlias /sensee /usr/lib/sensee/app/sensee.py
 </Directory>
 ```
 
-## Start
+## How to use sensee
 You have two (three) options here:
  - Running sensee as a standalone python application (you might use the script ```start.sh```)
  - Running from Apache (see the configuration above)
