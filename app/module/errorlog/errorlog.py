@@ -54,7 +54,12 @@ def tail(file, lines = 40):
         data = []
         while True:
             iter +=1
-            f.seek(fsize-bufsize*iter)
+            try:
+                f.seek(fsize-bufsize*iter)
+            except IOError:
+                f.seek(0)
+                content = f.readlines()
+                break
             data.extend(f.readlines())
             if len(data) >= lines or f.tell() == 0:
                 content = data[-lines:]
