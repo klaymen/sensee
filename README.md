@@ -23,8 +23,12 @@ To have the module errorlog working with Apache's log, you must set the access p
 
 ```
 chmod 755 /var/log/apache2 
-chmod 744 /var/log/apache2/error.log
+chmod 644 /var/log/apache2/error.log
 ```
+
+And for the future rotation ```/etc/logrotate.d/apache2``` must be updated as well:
+
+The line ```create 640 root adm``` should be replaced by ```create 644 root adm```.
 
 ## How to use sensee
 You have two (three) options here:
