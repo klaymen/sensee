@@ -43,3 +43,29 @@ def httpStatus(code):
              'description' : CODE[code]
            }
 
+def tail(file, lines = 40):
+    bufsize = 8192
+
+    fsize = os.stat(file).st_size
+
+    iter = 0
+    
+    content = []
+    
+    with open(file) as f:
+        if bufsize > fsize:
+            bufsize = fsize-1
+        data = []
+        while True:
+            iter +=1
+            try:
+                f.seek(fsize-bufsize*iter)
+            except IOError:
+                f.seek(0)
+                content = f.readlines()
+                break
+            data.extend(f.readlines())
+            if len(data) >= lines or f.tell() == 0:
+                content = data[-lines:]
+                break
+    return content

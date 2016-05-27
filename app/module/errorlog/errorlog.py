@@ -25,7 +25,7 @@ try:
     ENABLECACHING   = config.get( 'cache', 'ENABLECACHING' )
     INSTALLPATH     = config.get( 'general', 'INSTALLPATH' )
     NAME            = config.get( 'maintainer', 'NAME' )
-    EMAIL           = config.get( 'maintainer', 'EMAIL' )    
+    EMAIL           = config.get( 'maintainer', 'EMAIL' )
 except IOError as eIO:
     print( 'error during processing config file: \'%s\'' % eIO )
     sys.exit(1)
@@ -39,33 +39,6 @@ module = os.path.basename(__file__)[:-3]
 
 MODULEPATH = os.path.join( LIBPATH, 'module', module )
 
-def tail(file, lines = 40):
-    bufsize = 8192
-
-    fsize = os.stat(file).st_size
-
-    iter = 0
-    
-    content = []
-    
-    with open(file) as f:
-        if bufsize > fsize:
-            bufsize = fsize-1
-        data = []
-        while True:
-            iter +=1
-            try:
-                f.seek(fsize-bufsize*iter)
-            except IOError:
-                f.seek(0)
-                content = f.readlines()
-                break
-            data.extend(f.readlines())
-            if len(data) >= lines or f.tell() == 0:
-                content = data[-lines:]
-                break
-    return content
-
 def buildData(data):
     '''
     build data to cache
@@ -73,7 +46,7 @@ def buildData(data):
     
     start = datetime.datetime.now()
     data = {}
-    data['log']         = '<br />'.join(tail('/var/log/apache2/error.log')) 
+    data['log']         = '<br />'.join(utils.tail('/var/log/apache2/error.log')) 
     data['name']        = NAME
     data['email']       = EMAIL
     data['date']        = start

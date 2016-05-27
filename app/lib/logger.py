@@ -5,7 +5,7 @@ sensee logger library
 
 import datetime
 import ConfigParser
-
+import lib.utils
 from lib.conf import *
 
 config = ConfigParser.ConfigParser()
@@ -16,6 +16,14 @@ LOGLEVELS = [ "none", "error", "warning", "info", "debug" ]
 LOGLEVEL = str( config.get( "general", "LOGLEVEL" ) ).lower()
 
 LOGLEVEL = LOGLEVELS.index( LOGLEVEL ) if LOGLEVEL in LOGLEVELS else LOGLEVELS.index( "debug" )
+
+def read():
+    logFileObject = None
+    try: 
+        logFileObject = open( LOGFILE, "a" )
+    except StandardError:
+        return -1
+    
 
 def write( prefix, message ):
     '''
@@ -30,15 +38,6 @@ def write( prefix, message ):
     logFileObject.flush()
     logFileObject.close()
     return 0
-
-def warn( message ):
-    '''
-    If log level is appropriate write warning message to the specified logfile
-    '''
-    if LOGLEVEL >= LOGLEVELS.index( "warning" ):
-        return write( 'WW', message )
-    else:
-        return 0
 
 def warning( message ):
     '''
