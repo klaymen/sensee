@@ -35,7 +35,7 @@ FILTERS = [ 'html']
 DEFAULTFILTER = FILTERS[0]
 
 #Get module's name from __file__
-module = os.path.basename(__file__)[:-3]
+module = os.path.splitext(os.path.basename(__file__))[0]
 
 MODULEPATH = os.path.join( LIBPATH, 'module', module )
 
@@ -43,11 +43,11 @@ def buildData(data):
     '''
     build data to cache
     '''
-    
+
     start = datetime.datetime.now()
     data = {}
     data['apachelog']   = '<br />'.join(utils.tail('/var/log/apache2/error.log'))
-    data['senseelog']   = logger.read()
+    data['senseelog']   = '<br />'.join(logger.read())
     data['name']        = NAME
     data['email']       = EMAIL
     data['date']        = start
