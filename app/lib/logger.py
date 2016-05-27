@@ -22,7 +22,7 @@ def read(lines = 40):
     try:
         return utils.tail(LOGFILE, lines)
     except:
-        return "empty"
+        return "The log file is empty."
 
 def write( prefix, message ):
     '''
