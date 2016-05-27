@@ -115,7 +115,7 @@ def content(
                 cacheStream.close()
             except IOError:
                 logger.error( 'failed to save cacheFile: \'%s\'' % cacheFile )
-
+                
     returnStatus = "200 OK"
 
     cnt = buildHtml(data, accessLevel)

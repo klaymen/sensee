@@ -3,6 +3,7 @@ sensee logger library
 
 '''
 
+import os
 import datetime
 import ConfigParser
 import lib.utils as utils
@@ -17,14 +18,20 @@ LOGLEVEL = str( config.get( "general", "LOGLEVEL" ) ).lower()
 
 LOGLEVEL = LOGLEVELS.index( LOGLEVEL ) if LOGLEVEL in LOGLEVELS else LOGLEVELS.index( "debug" )
 
-def read():
-    return utils.tail(LOGFILE, 40)
+def read(lines = 40):
+    try:
+        return utils.tail(LOGFILE, lines)
+    except:
+        return "empty"
 
 def write( prefix, message ):
     '''
     Write message to the specified logfile
     '''
-    logFileObject = None
+
+    if not os.path.isfile(LOGFILE):
+        with open(LOGFILE, 'w') as logFileObject:
+            os.chmod(LOGFILE, 0o666)
     try: 
         logFileObject = open( LOGFILE, "a" )
     except StandardError:
@@ -32,6 +39,7 @@ def write( prefix, message ):
     logFileObject.write( "%s |%s| %s\n" % (datetime.datetime.now().isoformat(), prefix, message) )
     logFileObject.flush()
     logFileObject.close()
+
     return 0
 
 def warning( message ):
