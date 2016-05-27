@@ -46,7 +46,8 @@ def buildData(data):
     
     start = datetime.datetime.now()
     data = {}
-    data['log']         = '<br />'.join(utils.tail('/var/log/apache2/error.log')) 
+    data['apachelog']   = '<br />'.join(utils.tail('/var/log/apache2/error.log'))
+    data['senseelog']   = logger.read()
     data['name']        = NAME
     data['email']       = EMAIL
     data['date']        = start

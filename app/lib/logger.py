@@ -5,7 +5,7 @@ sensee logger library
 
 import datetime
 import ConfigParser
-import lib.utils
+import lib.utils as utils
 from lib.conf import *
 
 config = ConfigParser.ConfigParser()
@@ -18,12 +18,7 @@ LOGLEVEL = str( config.get( "general", "LOGLEVEL" ) ).lower()
 LOGLEVEL = LOGLEVELS.index( LOGLEVEL ) if LOGLEVEL in LOGLEVELS else LOGLEVELS.index( "debug" )
 
 def read():
-    logFileObject = None
-    try: 
-        logFileObject = open( LOGFILE, "a" )
-    except StandardError:
-        return -1
-    
+    return utils.tail(LOGFILE, 40)
 
 def write( prefix, message ):
     '''
