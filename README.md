@@ -1,5 +1,5 @@
 # sensee
-A complex sensor data server based on wsgiblank
+A complex sensor data server based on [wsgiblank](https://github.com/klaymen/wsgiblank/) 
 
 ## setup sensee
  - You need to have a user named as the application: ```useradd sensee```
