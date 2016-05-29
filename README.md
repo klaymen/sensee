@@ -7,7 +7,7 @@ A complex sensor data server based on wsgiblank
  - Edit the corresponding sections of the configuration file ```sensee.conf```
 
 ### Apache setup
-In order to make it work with Apache, you might need to add the following lines to its config (```/etc/apache2/apache2.conf```). However, before doing that you'd better create a backup of your current config.
+In order to make it work with Apache, you might need to add the following lines to its config (```/etc/apache2/apache2.conf```). However, before doing that you'd better create a backup of your current config. 
 
 ```
 DocumentRoot /var/www/
@@ -19,6 +19,7 @@ WSGIScriptAlias /sensee /usr/lib/sensee/app/sensee.py
     ErrorDocument 500 /sensee/errorlog
 </Directory>
 ```
+This way multiple different wsgi applications can be served through Apache, however, it is possible to have a single application in the root.
 To have the module errorlog working with Apache's log, you must set the access permissions accordingly:
 
 ```
