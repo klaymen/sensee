@@ -12,6 +12,13 @@ from lib.conf import *
 config = ConfigParser.ConfigParser()
 config.read( CONFIG_FILE ) 
 
+try:
+    USERLIST = config.get( 'authentication' , 'UserList' )
+
+except IOError as eIO:
+    print( 'error during processing config file: \'%s\'' % eIO )
+    sys.exit(1)
+
 def getFolders(path):
     '''
     return a list if direct non-hidden subdirectories of a path
@@ -69,3 +76,22 @@ def tail(file, lines = 40):
                 content = data[-lines:]
                 break
     return content
+    
+def getUsers( ):
+    '''
+    returns the list of the users from file
+    '''
+
+    UserListFile = open( USERLIST, 'r' )
+
+    users = {}
+
+    try:
+        for i in UserListFile:
+            users[i.strip().split()[0]] = i.strip().split()[1]
+    except StandardError:
+        UserListFile.close()
+        return 0
+
+    UserListFile.close()
+    return users

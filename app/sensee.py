@@ -115,7 +115,9 @@ def senseeApplication( environ, startResponse ):
             try:
                 cookies[cookie[0]] = cookie[2].strip()
             except StandardError:
-                pass
+                logger.error('  Cookie error')
+    else:
+        logger.debug('  no cookies')
 
     logger.debug( '  urlPath:       %s' % str( urlPath ) )
     logger.debug( '  queryString:   %s' % str( queryString ) )

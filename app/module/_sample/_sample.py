@@ -51,18 +51,18 @@ FILTERS = [ 'html', 'pdf', 'xls', 'csv', 'xlsx' ]
 DEFAULTFILTER = FILTERS[0]
 
 
-def buildData(data):
+def buildData(userName):
     '''
     build data to cache
     '''
-    return ''
+    return userName
 
 def buildHtml(data):
     '''
     Build html page based on data if necessary
     '''
     
-    return 'hello sample world'
+    return data
 
 #==/
 
@@ -111,7 +111,7 @@ def content(
 
     if noCache:
         # no or out-of date cache, building new one
-        data = buildData(1) #==> To be replaced with a specific call
+        data = buildData(userName) #==> To be replaced with a specific call
         # creating cache
         if ENABLECACHING is 1:
             try:

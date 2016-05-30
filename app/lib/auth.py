@@ -37,6 +37,12 @@ def openSession( username, mode, key = None ):
                 'time'  :   timeInt,
                 'key'   :   keyString,
                 }
+        if not os.path.exists(os.path.dirname(SESSION_FILE)):
+            try:
+                os.makedirs(os.path.dirname(SESSION_FILE))
+            except OSError as exc: # Guard against race condition
+                if exc.errno != errno.EEXIST:
+                    raise
         sessionFp = open( SESSION_FILE, 'w' )
         pickle.dump( sessions, sessionFp )
         logger.debug('   new session stored')

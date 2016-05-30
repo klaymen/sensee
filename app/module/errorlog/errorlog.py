@@ -38,6 +38,7 @@ DEFAULTFILTER = FILTERS[0]
 module = os.path.splitext(os.path.basename(__file__))[0]
 
 MODULEPATH = os.path.join( LIBPATH, 'module', module )
+TEMPLATEDIR = os.path.join( MODULEPATH, 'templates/html')
 
 def buildData(data):
     '''
@@ -59,8 +60,7 @@ def buildHtml(data, accessLevel):
     '''
     Build html page based on data if necessary
     '''
-    templateDir = os.path.join( MODULEPATH, 'templates/html' )
-    return template.read( templateDir, 'error', 'html', accessLevel) % data
+    return template.read( TEMPLATEDIR, 'error', 'html', accessLevel) % data
 
 def content(
         userName        = '',
