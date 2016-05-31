@@ -9,6 +9,7 @@ LCP=ln -s
 CONF_DIR=/etc/sensee
 CACHE_DIR=/var/cache/sensee
 LOG_DIR=/var/log/sensee
+TEMP_DIR=/var/tmp/sensee
 WWW=/var/www/html
 CONFS=sensee.conf users
 
@@ -21,6 +22,7 @@ uninstall:
 	rm -rf $(CONF_DIR)
 	rm -rf $(LOG_DIR)
 	rm -rf $(CACHE_DIR)
+	rm -rf $(TEMP_DIR)
 
 install:
 	mkdir -p $(DESTINATION)/sensee
