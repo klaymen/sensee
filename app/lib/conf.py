@@ -24,7 +24,7 @@ CONTENT_TYPE   = 'Content-Type'
 CONTENT_LENGTH = 'Content-Lenght'
 
 # CSS folder
-CSS = '/styles'
+CSS = '/sensee_styles'
 
 # return values
 CODE = {    200 : '200 OK', 
@@ -80,5 +80,5 @@ for directory in os.listdir(MODULEPATH):
                 }
 
 # default module to load if no module is specified
-DEFAULT_MODULE = '_sample'
+DEFAULT_MODULE = 'default'
 
