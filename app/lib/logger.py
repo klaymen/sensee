@@ -31,7 +31,7 @@ def write( prefix, message ):
 
     if not os.path.isfile(LOGFILE):
         with open(LOGFILE, 'w') as logFileObject:
-            os.chmod(LOGFILE, 0o666)
+            os.chmod(LOGFILE, 0o664)
     try: 
         logFileObject = open( LOGFILE, "a" )
     except StandardError:

@@ -40,14 +40,14 @@ def openSession( username, mode, key = None ):
         if not os.path.exists(os.path.dirname(SESSION_FILE)):
             try:
                 os.makedirs(os.path.dirname(SESSION_FILE))
-                os.chmod(os.path.dirname(SESSION_FILE), 0o777)   
+                os.chmod(os.path.dirname(SESSION_FILE), 0o775)   
             except OSError as exc: # Guard against race condition
                 if exc.errno != errno.EEXIST:
                     raise
         
         if not os.path.isfile(SESSION_FILE):
             with open(SESSION_FILE, 'w') as sessionFp:
-                os.chmod(SESSION_FILE, 0o666)          
+                os.chmod(SESSION_FILE, 0o664)
         sessionFp = open( SESSION_FILE, 'w' )
         pickle.dump( sessions, sessionFp )
         logger.debug('   new session stored')
