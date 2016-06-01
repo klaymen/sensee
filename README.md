@@ -3,6 +3,7 @@ A complex sensor data server based on [wsgiblank](https://github.com/klaymen/wsg
 
 ## setup sensee
  - You need to have a user named as the application: ```useradd sensee```
+ - Potentially you might need to add the user sensee to the groups adm and www-data (```sudo usermod -g adm sensee``` and ```sudo usermod -g www-data sensee```)
  - When you are ready navigate to the root folder of the app and install it by: ```sudo make install```
  - Edit the corresponding sections of the configuration file ```sensee.conf```
 
