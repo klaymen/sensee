@@ -34,7 +34,9 @@ The line ```create 640 root adm``` should be replaced by ```create 644 root adm`
 
 ### User setup
 The default username and password are ```admin```. In order to specify your own usernam and password you need to edit the file ```users```, where each line represents a user. A username (can not contain spaces) must be followed by the generated hash (to have it, please use the provided script: ```scripts/passgen.py```). For e.g.:
-```admin 58acb7acccce58ffa8b953b12b5a7702bd42dae441c1ad85057fa70b```
+```
+admin 58acb7acccce58ffa8b953b12b5a7702bd42dae441c1ad85057fa70b
+```
 You are free to add as many users as you like (one per line).
 
 ## How to use sensee
