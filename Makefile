@@ -33,5 +33,5 @@ install:
 	chown -R $(USER):$(GROUP) $(CACHE_DIR)
 	mkdir -p $(LOG_DIR)
 	chown -R $(USER):$(GROUP) $(LOG_DIR)
-	@for n in $(CONFS) ; do rm -f $(CONF_DIR)/$$n ; echo $$n ; $(CP) $(PWD)/$$n $(CONF_DIR)/$$n; done
+	@for n in $(CONFS) ; do rm -f $(CONF_DIR)/$$n ; $(CP) $(PWD)/$$n $(CONF_DIR)/$$n; done
 	@for n in $(WWW)/sensee_*/ ; do printf "Create symlink for "; ln -sf $$n $(DESTINATION)/sensee/static | basename $$n ; done
