@@ -40,7 +40,7 @@ def buildHtml( status, queryString ):
 
     errorString = "General error. I don't know how could that happen."
     errors = {
-            'invalid_credentials'   :   'invalid login credentilas supplied',
+            'invalid_credentials'   :   'invalid login credentials supplied',
             }
     if status.lower() in errors:
         errorString = errors[ status.lower() ]
