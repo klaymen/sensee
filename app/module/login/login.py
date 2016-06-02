@@ -6,6 +6,7 @@ sensee login module
 import sys
 import ConfigParser
 import urllib
+import hashlib
 
 sys.path.append('../../')
 
@@ -48,7 +49,7 @@ def content(
         if 'password' in postData:
             users = utils.getUsers()
             for user in users:
-                if ( user ==  postData['username'][0] and users[user] == postData['password'][0]):
+                if ( user ==  postData['username'][0] and users[user] == hashlib.sha224(postData['password'][0]).hexdigest()):
                     logger.debug("  found user/pw in user list")
                     key = auth.openSession( user, RW_ACCESS )
                     authLevel = RW_ACCESS
