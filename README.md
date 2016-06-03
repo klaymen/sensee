@@ -32,6 +32,9 @@ And for the future rotation ```/etc/logrotate.d/apache2``` must be updated as we
 
 The line ```create 640 root adm``` should be replaced by ```create 644 root adm```.
 
+### User setup
+The default username and password are ```admin```. In order to specify your own usernam and password you need to edit the file ```users```, where each line represents a user. A username (can not contain spaces) must be followed by a generated password hash (please use the provided script: ```scripts/passgen.py```). You are free to add as many users as you like.
+
 ## How to use sensee
 You have two (three) options here:
  - Running sensee as a standalone python application (you might use a script ```sudo ./start.sh```)
