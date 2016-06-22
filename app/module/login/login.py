@@ -63,7 +63,7 @@ def content(
     else:
         # save authentication session
         logger.debug("  cookieCnt: %s" % cookieCnt)
-        responseHeaders = [ ( 'Location', '/sensee/_sample'+ '?' + urllib.unquote(urllib.urlencode(queryString, True))),
+        responseHeaders = [ ( 'Location', '/sensee/index'+ '?' + urllib.unquote(urllib.urlencode(queryString, True))),
                             ( 'Set-Cookie', cookieCnt), ]
         return responseHeaders, returnStatus, ''
 

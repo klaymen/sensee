@@ -1,37 +1,20 @@
 '''
-sensee sample module
-
-comments starting with ==> to be removed when using this as a template
+sensee index module
 
 '''
-module = '_sample'
-
-#==> standard pyton module includes as needed
 
 import sys
 import pickle
 import ConfigParser
 
-#==/ 
-
-#==> custom includes from the common lib as needed
 
 sys.path.append('../../')
 
 import lib.utils    as utils
 import lib.logger   as logger
+import lib.templates as template
 import lib.cache    as cache
 from   lib.conf import *
-
-#==/ 
-
-#==> custom includes from the module lib as needed
-
-#import module_lib.some_lib as some_lib
-
-#==/
-
-#==> read global config as needed (module specific config values should be in module specific config files located in /etc/ptree/<module_name>.conf)
 
 config = ConfigParser.ConfigParser()
 config.read( CONFIG_FILE )
@@ -43,13 +26,14 @@ except IOError as eIO:
     print( 'error during processing config file: \'%s\'' % eIO )
     sys.exit(1)
 
-#==/
-
-#==> defining supported filters
-
 FILTERS = [ 'html', 'pdf', 'xls', 'csv', 'xlsx' ]
 DEFAULTFILTER = FILTERS[0]
 
+#Get module's name from __file__
+module = os.path.splitext(os.path.basename(__file__))[0]
+
+MODULEPATH = os.path.join( LIBPATH, 'module', module )
+TEMPLATEDIR = os.path.join( MODULEPATH, 'templates/html')
 
 def buildData(userName):
     '''
@@ -61,13 +45,10 @@ def buildHtml(data):
     '''
     Build html page based on data if necessary
     '''
-    
-    return data
+    return template.read( TEMPLATEDIR, 'page') % {
+            'content'       :   data
+            }
 
-#==/
-
-#==> content() is the standard interface of the module towards the main program, 
-#    the return values and function parameters are always identical.
 def content(
         userName        = '',
         accessLevel     = '',
@@ -81,9 +62,6 @@ def content(
     '''
     What this module does?
     '''
-
-    #==> extracting keys from queryString
-    #==> key = utils.getKey( queryString )
 
     cacheFile = cache.cacheFile( '_____', module ) # ==> cache.cacheFile( key, module )
 
@@ -121,9 +99,6 @@ def content(
             except IOError:
                 logger.error( 'failed to save cacheFile: \'%s\'' % cacheFile )
 
-    #==> determinate the requested output filter
-        #==> raise a warning
-
     returnStatus = "200 OK"
     
     #==> build content using the selected filter
@@ -132,5 +107,4 @@ def content(
     responseHeaders = [ ( "Content-Type", CONTENT_HTML ),
                         ( "Content-Length", str( len( cnt ) ) ) ]
 
-    #==> generate headers, status and return them with the actual content
     return responseHeaders, returnStatus, cnt
