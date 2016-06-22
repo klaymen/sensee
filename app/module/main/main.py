@@ -1,6 +1,6 @@
 '''
 
-default module
+main module
 
 '''
 

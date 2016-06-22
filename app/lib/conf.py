@@ -80,5 +80,5 @@ for directory in os.listdir(MODULEPATH):
                 }
 
 # default module to load if no module is specified
-DEFAULT_MODULE = 'default'
+DEFAULT_MODULE = 'main'
 
